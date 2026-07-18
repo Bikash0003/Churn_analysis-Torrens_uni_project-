@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.env
+.venv/
+venv/
+*.zip
+.kaggle/
+kaggle.json
+.cursor/
+agent-tools/
