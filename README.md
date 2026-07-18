@@ -1,37 +1,27 @@
-# Churn Analysis — Torrens University (BDA601 Assessment 2)
+# Telco Customer Churn Analysis (BDA601)
 
-Telco customer churn prediction for **BDA601 Big Data and Analytics** (Torrens University).
+Torrens University — **BDA601 Big Data and Analytics**, Assessment 2: Visualisation and Model Development.
 
-## Dataset
+## Original dataset
 
-- **Source:** [Kaggle — Telco Customer Churn (IBM sample)](https://www.kaggle.com/datasets/blastchar/telco-customer-churn/data)
-- **Full extract:** 7,043 rows × 21 columns
-- **A2 modified file:** 7,043 rows × 16 columns  
-  Removed: `MonthlyCharges`, `OnlineSecurity`, `StreamingTV`, `InternetService`, `Partner`
+Full IBM Telco Customer Churn sample on Kaggle (**7,043 rows × 21 columns**):
 
-## Project structure
+https://www.kaggle.com/datasets/blastchar/telco-customer-churn/data
 
-```
-data/raw/Telco-Customer-Churn.csv          # full 21-column extract
-data/processed/telco_churn_modified.csv    # A2 Task 1 modified data
-telco_churn_modified.csv                   # submission copy
-BDA601_Assessment2_Churn_Prediction.ipynb  # analysis notebook
-BDA601_Assessment2_Report.pdf              # ~1000-word report
-scripts/download_and_prepare_data.py       # download + modify helper
-```
+## What’s in this repository
 
-## Quick start
+| File | Description |
+|------|-------------|
+| `telco_churn_modified.csv` | **Modified dataset** used for modelling (7,043 × 16). Removed per brief: `MonthlyCharges`, `OnlineSecurity`, `StreamingTV`, `InternetService`, `Partner`. |
+| `BDA601_Assessment2_Churn_Prediction.ipynb` | Jupyter notebook: data prep, EDA, cleaning, feature selection, decision-tree churn model. |
+| `BDA601_Assessment2_Report.pdf` | Assessment report (~1,000 words): missing-value strategy and churn interpretation. |
+| `requirements.txt` | Python packages needed to run the notebook. |
+
+## How to run
 
 ```bash
 pip install -r requirements.txt
-python scripts/download_and_prepare_data.py
 jupyter notebook BDA601_Assessment2_Churn_Prediction.ipynb
 ```
 
-Optional (direct Kaggle API download): place `kaggle.json` in `~/.kaggle/`.  
-Without Kaggle credentials the script uses the public IBM mirror of the same sample.
-
-## Model
-
-Decision Tree Classifier (scikit-learn) with stratified train/validation/test split.  
-Top driver in this run: **Contract** (followed by tenure / TechSupport).
+The notebook can also re-download the original Kaggle data and rebuild the modified CSV.

@@ -8,5 +8,8 @@ venv/
 *.zip
 .kaggle/
 kaggle.json
-.cursor/
-agent-tools/
+dataset.csv
+data/
+scripts/
+generate_report.py
+A2.pdf
