@@ -1,27 +1,20 @@
-# Power BI — Telco Churn Manager Dashboard
+# Power BI Manager Report — Telco Churn
 
-Manager-facing churn reporting pack for BDA601 Assessment 2.
+## Open the report now
 
-## What’s included
+1. **Interactive report:** `Telco_Churn_Manager_Report.html` (4 pages)
+2. **Excel report (charts included):** `Telco_Churn_Manager_Report.xlsx`
+   - `01_Executive_Summary`
+   - `02_Who_Is_Churning`
+   - `03_Model_Trust`
+   - `04_Action_Plan`
+   - `Customers` (import this into Power BI Desktop)
 
-| File | Description |
-|------|-------------|
-| `Telco_Churn_PowerBI_Model.xlsx` | **Main Power BI import** — Customers, KPIs, segment tables, action plan |
-| `Telco_Churn_PowerBI.csv` | Flat customer table (risk scores, tenure bands, revenue at risk) |
-| `Manager_Churn_Dashboard.html` | Ready-to-open interactive manager dashboard (browser) |
-| `DAX_Measures.txt` | Copy-paste DAX for Power BI Desktop |
-| `PowerBI_Dashboard_Guide.md` | 4-page report layout (Executive → Who churns → Drivers → Actions) |
-| `How_to_create_PBIX.md` | Steps to save a best-practice `.pbix` in Power BI Desktop |
+## Save as official `.pbix`
 
-## Model metrics included for managers
+1. Open Power BI Desktop
+2. Get data → Excel → `Telco_Churn_Manager_Report.xlsx` → load `Customers`
+3. Build visuals using the 4 Excel pages as the layout guide
+4. File → Save as → `Telco_Churn_Manager_Dashboard.pbix`
 
-- Accuracy ≈ **73.2%**
-- Precision (Churn) ≈ **50%**
-- Recall (Churn) ≈ **76%**
-- F1-score ≈ **0.60**
-- Confusion matrix counts + ROC-AUC ≈ **0.81**
-
-## Quick start
-
-1. Open `Manager_Churn_Dashboard.html` in a browser for the instant report.
-2. In Power BI Desktop: **Get data → Excel** → `Telco_Churn_PowerBI_Model.xlsx` → follow `How_to_create_PBIX.md`.
+A binary `.pbix` can only be written by Power BI Desktop. This folder contains the finished manager report content.

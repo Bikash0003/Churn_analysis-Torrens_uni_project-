@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Telco Churn Manager Report — Power BI Style</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+<style>
+:root { --navy:#0B3D5C; --accent:#0B6E4F; --warn:#C44900; --danger:#B42318; --bg:#F3F6F9; --card:#fff; --muted:#5B6B7C; --line:#D5DEE8; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:"Segoe UI",Calibri,Arial,sans-serif; background:var(--bg); color:#1A2332; }
+.topbar { background:var(--navy); color:#fff; padding:14px 28px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+.topbar h1 { margin:0; font-size:20px; }
+.topbar .sub { opacity:.85; font-size:12px; }
+.tabs { display:flex; gap:8px; padding:12px 28px; background:#E7EEF5; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+.tab { border:1px solid var(--line); background:#fff; color:var(--navy); padding:10px 14px; border-radius:999px; cursor:pointer; font-weight:600; font-size:13px; }
+.tab.active { background:var(--navy); color:#fff; }
+.page { display:none; padding:22px 28px 40px; max-width:1220px; margin:0 auto; }
+.page.active { display:block; }
+.kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+.kpi { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; }
+.kpi .label { color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.04em; }
+.kpi .value { font-size:26px; font-weight:700; margin-top:6px; color:var(--navy); }
+.kpi.danger .value { color:var(--danger); } .kpi.warn .value { color:var(--warn); } .kpi.good .value { color:var(--accent); }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-bottom:14px; }
+.card h2 { margin:0 0 4px; font-size:16px; color:var(--navy); }
+.hint { margin:0 0 10px; color:var(--muted); font-size:13px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th,td { padding:8px 6px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+th { color:var(--muted); font-size:12px; }
+.insight { background:#FFF8F1; border:1px solid #F0D2B0; border-radius:12px; padding:14px 16px; margin-bottom:14px; }
+.cm { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; max-width:420px; }
+.cm div { border:1px solid var(--line); border-radius:10px; padding:12px; text-align:center; background:#F8FAFC; }
+.cm b { display:block; font-size:22px; color:var(--navy); }
+@media (max-width:900px) { .kpis,.grid,.cm { grid-template-columns:1fr 1fr; } }
+@media print { .tabs { display:none; } .page { display:block !important; page-break-after:always; } }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div>
+    <h1>Telco Customer Churn — Manager Report</h1>
+    <div class="sub">Power BI–style report · BDA601 · Accuracy / Precision / Recall / F1 / Confusion Matrix</div>
+  </div>
+  <div class="sub">Accuracy 73.17% · Recall 75.67% · Precision 49.65%</div>
+</div>
+<div class="tabs">
+  <button class="tab active" onclick="showPage(0)">1. Executive Summary</button>
+  <button class="tab" onclick="showPage(1)">2. Who Is Churning</button>
+  <button class="tab" onclick="showPage(2)">3. Model Trust</button>
+  <button class="tab" onclick="showPage(3)">4. Action Plan</button>
+</div>
+
+<section class="page active" id="p0">
+  <div class="kpis">
+    <div class="kpi"><div class="label">Total Customers</div><div class="value">7,043</div></div>
+    <div class="kpi danger"><div class="label">Churn Rate</div><div class="value">26.54%</div></div>
+    <div class="kpi warn"><div class="label">Monthly Revenue at Risk</div><div class="value">$139,116</div></div>
+    <div class="kpi good"><div class="label">High-Risk Customers</div><div class="value">3,017</div></div>
+  </div>
+  <div class="insight"><strong>Manager takeaway:</strong> Contract is the #1 driver. Focus retention on month-to-month + new customers (0–12 months). Model recall ~75.67% supports early outreach lists.</div>
+  <div class="grid">
+    <div class="card"><h2>Churn rate by contract</h2><p class="hint">Primary driver from the decision tree.</p><div id="c0a"></div></div>
+    <div class="card"><h2>Churn by tenure band</h2><p class="hint">New customers are the priority window.</p><div id="c0b"></div></div>
+  </div>
+</section>
+
+<section class="page" id="p1">
+  <div class="grid">
+    <div class="card"><h2>Payment method risk</h2><div id="c1a"></div></div>
+    <div class="card"><h2>Tech support coverage</h2><div id="c1b"></div></div>
+  </div>
+  <div class="card"><h2>Risk segment mix</h2><p class="hint">Use High Risk for weekly win-back lists.</p><div id="c1c"></div></div>
+</section>
+
+<section class="page" id="p2">
+  <div class="kpis">
+    <div class="kpi"><div class="label">Accuracy</div><div class="value">73.17%</div></div>
+    <div class="kpi"><div class="label">Precision</div><div class="value">49.65%</div></div>
+    <div class="kpi good"><div class="label">Recall</div><div class="value">75.67%</div></div>
+    <div class="kpi"><div class="label">F1-score</div><div class="value">0.6</div></div>
+  </div>
+  <div class="card">
+    <h2>What these metrics mean</h2>
+    <table>
+      <tr><th>Metric</th><th>Meaning for managers</th></tr>
+      <tr><td>Accuracy</td><td>Overall % of customers labelled correctly.</td></tr>
+      <tr><td>Precision</td><td>Of predicted churners, how many truly left (false-alarm control).</td></tr>
+      <tr><td>Recall</td><td>Of actual churners, how many we caught (coverage for save campaigns).</td></tr>
+      <tr><td>F1-score</td><td>Balance between precision and recall.</td></tr>
+      <tr><td>ROC-AUC (0.81)</td><td>How well the model ranks high-risk customers for contact priority.</td></tr>
+    </table>
+  </div>
+  <div class="card">
+    <h2>Confusion matrix (test set)</h2>
+    <div class="cm">
+      <div><span>True Negatives</span><b>748</b><small>Correctly retained</small></div>
+      <div><span>False Positives</span><b>287</b><small>False alarms</small></div>
+      <div><span>False Negatives</span><b>91</b><small>Missed churners</small></div>
+      <div><span>True Positives</span><b>283</b><small>Caught churners</small></div>
+    </div>
+  </div>
+</section>
+
+<section class="page" id="p3">
+  <div class="card">
+    <h2>Prioritised retention actions</h2>
+    <p class="hint">Assign owners and track weekly.</p>
+    <table>
+      <thead><tr><th>#</th><th>Segment</th><th>Insight</th><th>Action</th><th>Owner</th></tr></thead>
+      <tbody><tr><td>1</td><td>Month-to-month + New (0-12m)</td><td>Highest switching ease and lowest loyalty</td><td>Offer 12-month discount / loyalty upgrade within first 90 days</td><td>Retention / Sales</td></tr><tr><td>2</td><td>Electronic check payers</td><td>~45% churn; billing friction</td><td>Incentivise auto-pay (credit card / bank transfer) with small bill credit</td><td>Billing Ops</td></tr><tr><td>3</td><td>No TechSupport</td><td>~42% churn without support add-on</td><td>Bundle free trial TechSupport for high-risk month-to-month customers</td><td>Product / CX</td></tr><tr><td>4</td><td>High Risk score customers</td><td>Composite risk from contract, tenure, support, payment</td><td>Weekly win-back call list + personalised save offers</td><td>Retention Team</td></tr><tr><td>5</td><td>Paperless billing + short tenure</td><td>Higher churn than non-paperless</td><td>Proactive usage tips and save offers before month 6</td><td>CRM</td></tr></tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+const DATA = {"kpis": {"total": 7043, "churned": 1869, "retained": 5174, "churn_rate": 26.54, "avg_tenure_churn": 18.0, "avg_tenure_keep": 37.6, "revenue_at_risk": 139116.0, "high_risk": 3017, "high_risk_churn_rate": 48.9}, "by_contract": [{"Contract": "Month-to-month", "Customers": 3875, "Churned": 1655, "AvgTenure": 18.0, "AvgTotalCharges": 1369.25, "RevenueAtRisk": 120834.79, "ChurnRatePct": 42.7}, {"Contract": "One year", "Customers": 1473, "Churned": 166, "AvgTenure": 42.0, "AvgTotalCharges": 3032.62, "RevenueAtRisk": 14118.48, "ChurnRatePct": 11.3}, {"Contract": "Two year", "Customers": 1695, "Churned": 48, "AvgTenure": 56.7, "AvgTotalCharges": 3706.93, "RevenueAtRisk": 4162.29, "ChurnRatePct": 2.8}], "by_payment": [{"PaymentMethod": "Electronic check", "Customers": 2365, "Churned": 1071, "AvgTenure": 25.2, "AvgTotalCharges": 2090.87, "RevenueAtRisk": 84307.71, "ChurnRatePct": 45.3}, {"PaymentMethod": "Mailed check", "Customers": 1612, "Churned": 308, "AvgTenure": 21.8, "AvgTotalCharges": 1049.25, "RevenueAtRisk": 16831.65, "ChurnRatePct": 19.1}, {"PaymentMethod": "Bank transfer (automatic)", "Customers": 1544, "Churned": 258, "AvgTenure": 43.7, "AvgTotalCharges": 3075.31, "RevenueAtRisk": 20062.36, "ChurnRatePct": 16.7}, {"PaymentMethod": "Credit card (automatic)", "Customers": 1522, "Churned": 232, "AvgTenure": 43.3, "AvgTotalCharges": 3069.38, "RevenueAtRisk": 17913.84, "ChurnRatePct": 15.2}], "by_tech": [{"TechSupport": "No", "Customers": 3473, "Churned": 1446, "AvgTenure": 25.8, "AvgTotalCharges": 2089.28, "RevenueAtRisk": 110696.3, "ChurnRatePct": 41.6}, {"TechSupport": "Yes", "Customers": 2044, "Churned": 310, "AvgTenure": 44.8, "AvgTotalCharges": 3810.64, "RevenueAtRisk": 26121.44, "ChurnRatePct": 15.2}, {"TechSupport": "No internet service", "Customers": 1526, "Churned": 113, "AvgTenure": 30.5, "AvgTotalCharges": 662.6, "RevenueAtRisk": 2297.83, "ChurnRatePct": 7.4}], "by_tenure": [{"TenureBand": "0-12 months (New)", "Customers": 2186, "Churned": 1037, "AvgTenure": 4.7, "AvgTotalCharges": 275.23, "RevenueAtRisk": 69012.95, "ChurnRatePct": 47.4}, {"TenureBand": "13-24 months", "Customers": 1024, "Churned": 294, "AvgTenure": 18.4, "AvgTotalCharges": 1126.26, "RevenueAtRisk": 22978.16, "ChurnRatePct": 28.7}, {"TenureBand": "25-48 months", "Customers": 1594, "Churned": 325, "AvgTenure": 36.2, "AvgTotalCharges": 2390.45, "RevenueAtRisk": 27466.72, "ChurnRatePct": 20.4}, {"TenureBand": "49+ months (Loyal)", "Customers": 2239, "Churned": 213, "AvgTenure": 63.0, "AvgTotalCharges": 4685.51, "RevenueAtRisk": 19657.75, "ChurnRatePct": 9.5}], "by_risk": [{"RiskSegment": "High Risk", "Customers": 3017, "Churned": 1474, "AvgTenure": 17.2, "AvgTotalCharges": 1384.8, "RevenueAtRisk": 110562.25, "ChurnRatePct": 48.9}, {"RiskSegment": "Medium Risk", "Customers": 1745, "Churned": 308, "AvgTenure": 33.5, "AvgTotalCharges": 2617.89, "RevenueAtRisk": 21409.94, "ChurnRatePct": 17.7}, {"RiskSegment": "Low Risk", "Customers": 2281, "Churned": 87, "AvgTenure": 51.5, "AvgTotalCharges": 3204.74, "RevenueAtRisk": 7143.37, "ChurnRatePct": 3.8}], "actions": [{"Priority": 1, "Segment": "Month-to-month + New (0-12m)", "ChurnInsight": "Highest switching ease and lowest loyalty", "RecommendedAction": "Offer 12-month discount / loyalty upgrade within first 90 days", "Owner": "Retention / Sales"}, {"Priority": 2, "Segment": "Electronic check payers", "ChurnInsight": "~45% churn; billing friction", "RecommendedAction": "Incentivise auto-pay (credit card / bank transfer) with small bill credit", "Owner": "Billing Ops"}, {"Priority": 3, "Segment": "No TechSupport", "ChurnInsight": "~42% churn without support add-on", "RecommendedAction": "Bundle free trial TechSupport for high-risk month-to-month customers", "Owner": "Product / CX"}, {"Priority": 4, "Segment": "High Risk score customers", "ChurnInsight": "Composite risk from contract, tenure, support, payment", "RecommendedAction": "Weekly win-back call list + personalised save offers", "Owner": "Retention Team"}, {"Priority": 5, "Segment": "Paperless billing + short tenure", "ChurnInsight": "Higher churn than non-paperless", "RecommendedAction": "Proactive usage tips and save offers before month 6", "Owner": "CRM"}], "model_notes": {"top_driver": "Contract", "test_accuracy_pct": 73.2, "churn_recall_pct": 76.0, "roc_auc": 0.81}, "metrics": {"accuracy": 73.17, "precision": 49.65, "recall": 75.67, "f1": 0.6, "auc": 0.81, "tn": 748, "fp": 287, "fn": 91, "tp": 283}};
+const layoutBase = {margin:{t:10,r:10,b:80,l:50}, paper_bgcolor:'rgba(0,0,0,0)', plot_bgcolor:'rgba(0,0,0,0)', font:{family:'Segoe UI', size:12}, height:320};
+function bar(id, rows, x, y, color) {
+  Plotly.newPlot(id, [{type:'bar', x:rows.map(r=>r[x]), y:rows.map(r=>r[y]), marker:{color}, text:rows.map(r=>r[y]+'%'), textposition:'auto'}],
+    Object.assign({}, layoutBase, {yaxis:{title:'Churn rate %'}}), {displayModeBar:false, responsive:true});
+}
+function showPage(i) {
+  document.querySelectorAll('.page').forEach((p,idx)=>p.classList.toggle('active', idx===i));
+  document.querySelectorAll('.tab').forEach((t,idx)=>t.classList.toggle('active', idx===i));
+  setTimeout(()=>window.dispatchEvent(new Event('resize')), 50);
+}
+bar('c0a', DATA.by_contract, 'Contract', 'ChurnRatePct', '#0B6E4F');
+bar('c0b', DATA.by_tenure, 'TenureBand', 'ChurnRatePct', '#1F6FEB');
+bar('c1a', DATA.by_payment, 'PaymentMethod', 'ChurnRatePct', '#C44900');
+bar('c1b', DATA.by_tech, 'TechSupport', 'ChurnRatePct', '#7C3AED');
+Plotly.newPlot('c1c', [{type:'pie', labels:DATA.by_risk.map(r=>r.RiskSegment), values:DATA.by_risk.map(r=>r.Customers), hole:0.45,
+  marker:{colors:['#0B6E4F','#C44900','#B42318']}, textinfo:'label+percent'}], Object.assign({}, layoutBase, {showlegend:false}), {displayModeBar:false, responsive:true});
+</script>
+</body></html>
