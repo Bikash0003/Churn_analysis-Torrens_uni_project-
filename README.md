@@ -25,3 +25,12 @@ jupyter notebook BDA601_Assessment2_Churn_Prediction.ipynb
 ```
 
 The notebook can also re-download the original Kaggle data and rebuild the modified CSV.
+
+## Power BI manager dashboard
+
+See the powerbi/ folder for the manager reporting pack:
+
+- powerbi/Manager_Churn_Dashboard.html — open in browser
+- powerbi/Telco_Churn_PowerBI_Model.xlsx — import into Power BI Desktop to create .pbix
+- Includes Accuracy, Precision, Recall, F1, and Confusion Matrix for leadership review
+

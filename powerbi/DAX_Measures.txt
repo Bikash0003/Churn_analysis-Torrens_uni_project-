@@ -1,0 +1,40 @@
+-- Create these measures on the Customers table in Power BI
+
+Total Customers =
+DISTINCTCOUNT ( Customers[customerID] )
+
+Churned Customers =
+CALCULATE (
+    DISTINCTCOUNT ( Customers[customerID] ),
+    Customers[ChurnFlag] = 1
+)
+
+Retained Customers =
+CALCULATE (
+    DISTINCTCOUNT ( Customers[customerID] ),
+    Customers[ChurnFlag] = 0
+)
+
+Churn Rate % =
+DIVIDE ( [Churned Customers], [Total Customers] )
+
+Avg Tenure =
+AVERAGE ( Customers[tenure] )
+
+Avg Tenure Churned =
+CALCULATE ( AVERAGE ( Customers[tenure] ), Customers[ChurnFlag] = 1 )
+
+Avg Tenure Retained =
+CALCULATE ( AVERAGE ( Customers[tenure] ), Customers[ChurnFlag] = 0 )
+
+Est Monthly Revenue at Risk =
+SUM ( Customers[RevenueAtRisk] )
+
+High Risk Customers =
+CALCULATE (
+    DISTINCTCOUNT ( Customers[customerID] ),
+    Customers[RiskSegment] = "High Risk"
+)
+
+High Risk Churn Rate % =
+CALCULATE ( [Churn Rate %], Customers[RiskSegment] = "High Risk" )

@@ -1,0 +1,230 @@
+{
+  "kpis": {
+    "total": 7043,
+    "churned": 1869,
+    "retained": 5174,
+    "churn_rate": 26.54,
+    "avg_tenure_churn": 18.0,
+    "avg_tenure_keep": 37.6,
+    "revenue_at_risk": 139116.0,
+    "high_risk": 3017,
+    "high_risk_churn_rate": 48.9
+  },
+  "by_contract": [
+    {
+      "Contract": "Month-to-month",
+      "Customers": 3875,
+      "Churned": 1655,
+      "AvgTenure": 18.0,
+      "AvgTotalCharges": 1369.25,
+      "RevenueAtRisk": 120834.79,
+      "ChurnRatePct": 42.7
+    },
+    {
+      "Contract": "One year",
+      "Customers": 1473,
+      "Churned": 166,
+      "AvgTenure": 42.0,
+      "AvgTotalCharges": 3032.62,
+      "RevenueAtRisk": 14118.48,
+      "ChurnRatePct": 11.3
+    },
+    {
+      "Contract": "Two year",
+      "Customers": 1695,
+      "Churned": 48,
+      "AvgTenure": 56.7,
+      "AvgTotalCharges": 3706.93,
+      "RevenueAtRisk": 4162.29,
+      "ChurnRatePct": 2.8
+    }
+  ],
+  "by_payment": [
+    {
+      "PaymentMethod": "Electronic check",
+      "Customers": 2365,
+      "Churned": 1071,
+      "AvgTenure": 25.2,
+      "AvgTotalCharges": 2090.87,
+      "RevenueAtRisk": 84307.71,
+      "ChurnRatePct": 45.3
+    },
+    {
+      "PaymentMethod": "Mailed check",
+      "Customers": 1612,
+      "Churned": 308,
+      "AvgTenure": 21.8,
+      "AvgTotalCharges": 1049.25,
+      "RevenueAtRisk": 16831.65,
+      "ChurnRatePct": 19.1
+    },
+    {
+      "PaymentMethod": "Bank transfer (automatic)",
+      "Customers": 1544,
+      "Churned": 258,
+      "AvgTenure": 43.7,
+      "AvgTotalCharges": 3075.31,
+      "RevenueAtRisk": 20062.36,
+      "ChurnRatePct": 16.7
+    },
+    {
+      "PaymentMethod": "Credit card (automatic)",
+      "Customers": 1522,
+      "Churned": 232,
+      "AvgTenure": 43.3,
+      "AvgTotalCharges": 3069.38,
+      "RevenueAtRisk": 17913.84,
+      "ChurnRatePct": 15.2
+    }
+  ],
+  "by_tech": [
+    {
+      "TechSupport": "No",
+      "Customers": 3473,
+      "Churned": 1446,
+      "AvgTenure": 25.8,
+      "AvgTotalCharges": 2089.28,
+      "RevenueAtRisk": 110696.3,
+      "ChurnRatePct": 41.6
+    },
+    {
+      "TechSupport": "Yes",
+      "Customers": 2044,
+      "Churned": 310,
+      "AvgTenure": 44.8,
+      "AvgTotalCharges": 3810.64,
+      "RevenueAtRisk": 26121.44,
+      "ChurnRatePct": 15.2
+    },
+    {
+      "TechSupport": "No internet service",
+      "Customers": 1526,
+      "Churned": 113,
+      "AvgTenure": 30.5,
+      "AvgTotalCharges": 662.6,
+      "RevenueAtRisk": 2297.83,
+      "ChurnRatePct": 7.4
+    }
+  ],
+  "by_tenure": [
+    {
+      "TenureBand": "0-12 months (New)",
+      "Customers": 2186,
+      "Churned": 1037,
+      "AvgTenure": 4.7,
+      "AvgTotalCharges": 275.23,
+      "RevenueAtRisk": 69012.95,
+      "ChurnRatePct": 47.4
+    },
+    {
+      "TenureBand": "13-24 months",
+      "Customers": 1024,
+      "Churned": 294,
+      "AvgTenure": 18.4,
+      "AvgTotalCharges": 1126.26,
+      "RevenueAtRisk": 22978.16,
+      "ChurnRatePct": 28.7
+    },
+    {
+      "TenureBand": "25-48 months",
+      "Customers": 1594,
+      "Churned": 325,
+      "AvgTenure": 36.2,
+      "AvgTotalCharges": 2390.45,
+      "RevenueAtRisk": 27466.72,
+      "ChurnRatePct": 20.4
+    },
+    {
+      "TenureBand": "49+ months (Loyal)",
+      "Customers": 2239,
+      "Churned": 213,
+      "AvgTenure": 63.0,
+      "AvgTotalCharges": 4685.51,
+      "RevenueAtRisk": 19657.75,
+      "ChurnRatePct": 9.5
+    }
+  ],
+  "by_risk": [
+    {
+      "RiskSegment": "High Risk",
+      "Customers": 3017,
+      "Churned": 1474,
+      "AvgTenure": 17.2,
+      "AvgTotalCharges": 1384.8,
+      "RevenueAtRisk": 110562.25,
+      "ChurnRatePct": 48.9
+    },
+    {
+      "RiskSegment": "Medium Risk",
+      "Customers": 1745,
+      "Churned": 308,
+      "AvgTenure": 33.5,
+      "AvgTotalCharges": 2617.89,
+      "RevenueAtRisk": 21409.94,
+      "ChurnRatePct": 17.7
+    },
+    {
+      "RiskSegment": "Low Risk",
+      "Customers": 2281,
+      "Churned": 87,
+      "AvgTenure": 51.5,
+      "AvgTotalCharges": 3204.74,
+      "RevenueAtRisk": 7143.37,
+      "ChurnRatePct": 3.8
+    }
+  ],
+  "actions": [
+    {
+      "Priority": 1,
+      "Segment": "Month-to-month + New (0-12m)",
+      "ChurnInsight": "Highest switching ease and lowest loyalty",
+      "RecommendedAction": "Offer 12-month discount / loyalty upgrade within first 90 days",
+      "Owner": "Retention / Sales"
+    },
+    {
+      "Priority": 2,
+      "Segment": "Electronic check payers",
+      "ChurnInsight": "~45% churn; billing friction",
+      "RecommendedAction": "Incentivise auto-pay (credit card / bank transfer) with small bill credit",
+      "Owner": "Billing Ops"
+    },
+    {
+      "Priority": 3,
+      "Segment": "No TechSupport",
+      "ChurnInsight": "~42% churn without support add-on",
+      "RecommendedAction": "Bundle free trial TechSupport for high-risk month-to-month customers",
+      "Owner": "Product / CX"
+    },
+    {
+      "Priority": 4,
+      "Segment": "High Risk score customers",
+      "ChurnInsight": "Composite risk from contract, tenure, support, payment",
+      "RecommendedAction": "Weekly win-back call list + personalised save offers",
+      "Owner": "Retention Team"
+    },
+    {
+      "Priority": 5,
+      "Segment": "Paperless billing + short tenure",
+      "ChurnInsight": "Higher churn than non-paperless",
+      "RecommendedAction": "Proactive usage tips and save offers before month 6",
+      "Owner": "CRM"
+    }
+  ],
+  "model_notes": {
+    "top_driver": "Contract",
+    "test_accuracy_pct": 73.2,
+    "churn_recall_pct": 76.0,
+    "roc_auc": 0.81
+  },
+  "metrics": {
+    "accuracy": 73.17,
+    "precision": 49.65,
+    "recall": 75.67,
+    "f1": 0.6,
+    "auc": 0.81,
+    "tn": 748,
+    "fp": 287,
+    "fn": 91,
+    "tp": 283
+  }
+}
